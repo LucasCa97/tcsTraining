@@ -35,6 +35,7 @@ const App = () => {
     return data
   }
 
+
   // Add Task
   const addTask = async (task) => {
     const res = await fetch('http://localhost:5000/tasks', {
