@@ -1,0 +1,34 @@
+diferencias entre real DOM y virtual DOM, promesas, callbacks y asincronicas.
+
+Que es el estado
+
+Hooks basicos: ver doc oficial
+
+Que es Redux, el flujo de Redux.
+actores principales de Redux, reducer, actions, store, dispatch.
+Cuando usarias redux?
+
+prueba de fetch, traer datos, persearlo y renderizar los datos
+como crear una promise
+
+Passing by value and by reference
+
+Try Catch, error handling
+
+
+
+JS
+
+Hoisting, curryng, high order functions, high order components, pure components
+scope, promise, error handling try/catch status 200, callback (callback hell), promises, async/await. los 3
+estados de la promesa, promise.resolve.
+fetch completo
+tutorial js for begginers
+
+REACT
+
+Life cicle, useEffect, useState, useMemo, useRef
+que es el state, las distintas maneras de hacer state management, las 3 formas de manejar estado (redux, context, useState)
+Virtual DOM, Real DOM.
+
+

@@ -1,0 +1,47 @@
+var a = 1
+let b = 2
+const c = 3
+
+let obj = {
+	name: "john",
+	age: 30,
+
+}
+
+let obj2 = {...obj, name: "Juan"}
+
+let arr = [1,2,3,4,5,6,7,8]
+
+const run = () => arr.filter(a => a > 5)
+
+-----------------------------------------
+
+for(i=1; i > 5; i++){
+console.log(i)
+
+}
+
+
+
+let arr = []
+
+
+
+
+Do(){
+
+while()
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
