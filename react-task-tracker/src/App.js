@@ -1,19 +1,27 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
 import About from './components/About'
+import { useSelector, useDispatch } from 'react-redux'
+import { setTask, taskAdded } from './actions/actions'
 
 const App = () => {
-  const [showAddTask, setShowAddTask] = useState(false)
-  const [tasks, setTasks] = useState([])
+  const showAddTask = useSelector(state => state.showTask);
+  const tasks = useSelector(state => state.addTask);
+  const dispatch = useDispatch()
+
+
+  // const [showAddTask, setShowAddTask] = useState(false)
+  // const [tasks, setTasks] = useState([])
 
   useEffect(() => {
     const getTasks = async () => {
       const tasksFromServer = await fetchTasks()
-      setTasks(tasksFromServer)
+      dispatch(setTask(tasksFromServer))
+      // setTasks(tasksFromServer)
     }
 
     getTasks()
@@ -48,7 +56,8 @@ const App = () => {
 
     const data = await res.json()
 
-    setTasks([...tasks, data])
+    dispatch(setTask([...tasks, data]))
+    // setTasks([...tasks, data])
 
     // const id = Math.floor(Math.random() * 10000) + 1
     // const newTask = { id, ...task }
@@ -62,7 +71,8 @@ const App = () => {
     })
     //We should control the response status to decide if we will change the state or not.
     res.status === 200
-      ? setTasks(tasks.filter((task) => task.id !== id))
+      ? dispatch(setTask(tasks.filter((task) => task.id !== id)))
+      // ? setTasks(tasks.filter((task) => task.id !== id))
       : alert('Error Deleting This Task')
   }
 
@@ -80,19 +90,25 @@ const App = () => {
     })
 
     const data = await res.json()
-
-    setTasks(
+    
+    // setTasks(
+    //   tasks.map((task) =>
+    //     task.id === id ? { ...task, reminder: data.reminder } : task
+    //   )
+    // )
+    dispatch(setTask(
       tasks.map((task) =>
         task.id === id ? { ...task, reminder: data.reminder } : task
       )
-    )
+    ))
   }
 
   return (
     <Router>
       <div className='container'>
         <Header
-          onAdd={() => setShowAddTask(!showAddTask)}
+          // onAdd={() => setShowAddTask(!showAddTask)}
+          onAdd={() => dispatch(taskAdded())}
           showAdd={showAddTask}
         />
         <Routes>
