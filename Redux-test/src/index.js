@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import {applyMiddleware, createStore} from 'redux'
 import allReducers from './reducers/index'
@@ -12,9 +11,9 @@ const store = createStore(allReducers, applyMiddleware(thunk))
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-        <App />
-    </Provider>
+      <Provider store={store}>
+          <App />
+      </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
