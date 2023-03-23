@@ -17,34 +17,56 @@ const App = () => {
   // const [showAddTask, setShowAddTask] = useState(false)
   // const [tasks, setTasks] = useState([])
 
+    // Fetch Tasks
+    const fetchTasks = async () => {
+      const res = await fetch('http://localhost:5000/tasks')
+      const data = await res.json()
+      console.log("todas las tasks", data)
+      return data
+    }
+  
+    // Fetch Task
+    const fetchTask = async (id) => {
+      const res = await fetch(`http://localhost:5000/tasks/${id}`)
+      const data = await res.json()
+      console.log("task por id", data)
+      return data
+    }
+
   useEffect(() => {
     const getTasks = async () => {
       const tasksFromServer = await fetchTasks()
       dispatch(setTask(tasksFromServer))
+      console.log("use Effect", tasksFromServer)
       // setTasks(tasksFromServer)
     }
 
     getTasks()
   }, [])
 
-  // Fetch Tasks
-  const fetchTasks = async () => {
-    const res = await fetch('http://localhost:5000/tasks')
-    const data = await res.json()
 
-    return data
-  }
-
-  // Fetch Task
-  const fetchTask = async (id) => {
-    const res = await fetch(`http://localhost:5000/tasks/${id}`)
-    const data = await res.json()
-
-    return data
-  }
 
 
   // Add Task
+  // const addTask = async (task) => {
+  //   const res = await fetch('http://localhost:5000/tasks', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-type': 'application/json',
+  //     },
+  //     body: JSON.stringify(task),
+  //   })
+
+  //   const data = await res.json()
+
+  //   dispatch(setTask([...tasks, data]))
+  //   // setTasks([...tasks, data])
+
+  //   // const id = Math.floor(Math.random() * 10000) + 1
+  //   // const newTask = { id, ...task }
+  //   // setTasks([...tasks, newTask])
+  // }
+
   const addTask = async (task) => {
     const res = await fetch('http://localhost:5000/tasks', {
       method: 'POST',
@@ -56,12 +78,7 @@ const App = () => {
 
     const data = await res.json()
 
-    dispatch(setTask([...tasks, data]))
-    // setTasks([...tasks, data])
-
-    // const id = Math.floor(Math.random() * 10000) + 1
-    // const newTask = { id, ...task }
-    // setTasks([...tasks, newTask])
+    dispatch(addTask({ text: data.text, day: data.day, reminder: data.reminder }))
   }
 
   // Delete Task
@@ -71,7 +88,7 @@ const App = () => {
     })
     //We should control the response status to decide if we will change the state or not.
     res.status === 200
-      ? dispatch(setTask(tasks.filter((task) => task.id !== id)))
+      ? dispatch(addTask(tasks.filter((task) => task.id !== id)))
       // ? setTasks(tasks.filter((task) => task.id !== id))
       : alert('Error Deleting This Task')
   }
@@ -117,7 +134,7 @@ const App = () => {
             element={
               <>
                 {showAddTask && <AddTask onAdd={addTask} />}
-                {tasks.length > 0 ? (
+                {tasks && tasks.length > 0 ? (
                   <Tasks
                     tasks={tasks}
                     onDelete={deleteTask}
