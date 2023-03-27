@@ -20,6 +20,10 @@
     color: inherit;
   }
 
+  p{
+    color: white;
+  }
+
 
   .task-form {
     display: flex;

@@ -1,15 +1,21 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { addTask } from '../actions';
+import { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTask, fetchTasks } from '../actions';
 import '../app.css';
 import Task from './Task';
 
-const TaskForm = ({ tasks }) => {
+const TaskForm = () => {
   const dispatch = useDispatch();
 
-  const taskNameRef = React.useRef(null);
-  const dateRef = React.useRef(null);
-  const reminderRef = React.useRef(null);
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, []);
+
+  const tasks = useSelector((state) => state.tasks);
+
+  const taskNameRef = useRef(null);
+  const dateRef = useRef(null);
+  const reminderRef = useRef(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -39,11 +45,18 @@ const TaskForm = ({ tasks }) => {
         </label>
         <button className="task-form__button" type="submit">Add task</button>
       </form>
-      <div>
-        {tasks = {} ? "" : tasks.map((task) => (
-          <Task key={task.id} task={task} />
-        ))}
+      <div className="container">
+      <div className="row">
+        <div className="col-md-6">
+          <h1 className='title'>Tasks</h1>
+          {tasks ?
+            tasks.map((task) => <Task key={task.id} task={task} />)
+           : 
+            <p>No tasks to show</p>
+          }
+        </div>
       </div>
+    </div>
     </div>
   );
 };
