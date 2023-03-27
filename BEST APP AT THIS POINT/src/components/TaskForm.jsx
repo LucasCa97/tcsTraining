@@ -40,7 +40,7 @@ const TaskForm = ({ tasks }) => {
         <button className="task-form__button" type="submit">Add task</button>
       </form>
       <div>
-        {tasks.map((task) => (
+        {tasks = {} ? "" : tasks.map((task) => (
           <Task key={task.id} task={task} />
         ))}
       </div>
