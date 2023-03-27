@@ -31,6 +31,18 @@ export const fetchData = () => {
     }
 }
 
+
+export function fetchTasks() {
+  return (dispatch) => {
+    fetch('http://localhost:5000/tasks')
+      .then((res) => res.json())
+      .then((tasks) => {
+        dispatch({ type: 'FETCH_TASKS', payload: tasks });
+      });
+  };
+}
+
+
 // Add task action
 export const addTask = (task) => (dispatch) => {
   fetch("http://localhost:5000/tasks", {

@@ -1,9 +1,15 @@
-import { useDispatch } from 'react-redux';
 import { deleteTask, toggleReminder } from '../actions';
+import { useDispatch } from 'react-redux';
+import { fetchTasks } from '../actions/index';
+import { useEffect } from 'react';
+
 
 const Task = ({ task }) => {
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, [dispatch]);
   const { id, taskName, date, reminder } = task;
 
   const handleDelete = () => {
@@ -16,7 +22,7 @@ const Task = ({ task }) => {
 
   return (
     <div
-      className={`task ${reminder ? 'reminder' : ''}`}
+      className={`task-container task ${reminder ? 'reminder' : ''}`}
       onDoubleClick={handleReminder}
     >
       <h3>
