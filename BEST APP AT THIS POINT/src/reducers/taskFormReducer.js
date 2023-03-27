@@ -1,4 +1,4 @@
-import { ADD_TASK, EDIT_TASK, DELETE_TASK, TOGGLE_REMINDER } from "../actions/actionTypes";
+import { ADD_TASK, EDIT_TASK, DELETE_TASK, TOGGLE_REMINDER, FETCH_TASKS } from "../actions/actionTypes";
 
 const initialState = {
   tasks: [],
@@ -18,8 +18,8 @@ const taskReducer = (state = initialState, action) => {
           task.id === action.payload.id ? action.payload : task
         ),
       };
-      case 'FETCH_TASKS':
-      return { ...state, tasks: action.payload };
+      case FETCH_TASKS:
+        return { ...state, tasks: action.payload };
     case DELETE_TASK:
       return {
         ...state,

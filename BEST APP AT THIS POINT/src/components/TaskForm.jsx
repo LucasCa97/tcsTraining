@@ -12,6 +12,7 @@ const TaskForm = () => {
   }, []);
 
   const tasks = useSelector((state) => state.tasks);
+  console.log(tasks)
 
   const taskNameRef = useRef(null);
   const dateRef = useRef(null);
@@ -49,11 +50,13 @@ const TaskForm = () => {
       <div className="row">
         <div className="col-md-6">
           <h1 className='title'>Tasks</h1>
-          {tasks ?
-            tasks.map((task) => <Task key={task.id} task={task} />)
-           : 
-            <p>No tasks to show</p>
-          }
+          {tasks && tasks.length > 0 ? (
+          tasks.map((task) => (
+          <Task key={task.id} task={task} />
+          ))
+          ) : (
+          <p>No tasks to show</p>
+          )}
         </div>
       </div>
     </div>
