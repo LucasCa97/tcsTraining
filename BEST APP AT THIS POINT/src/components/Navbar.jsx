@@ -24,7 +24,7 @@ function NavbarOne() {
           </Navbar.Brand>
           <Link to="/counter"><Button variant="primary"><BsFillDice6Fill /> Counter</Button></Link>
           <Link to="/users"><Button variant="primary"> <BsFillPeopleFill /> Users </Button></Link>
-          <Link to="/form"><Button variant="primary"> <BsFillClipboard2PlusFill /> New User </Button></Link>
+          <Link to="/form"><Button variant="primary"> <BsFillClipboard2PlusFill /> New Task </Button></Link>
         </Container>
       </Navbar>
     </>

@@ -11,7 +11,7 @@ const TaskForm = () => {
     dispatch(fetchTasks());
   }, []);
 
-  const tasks = useSelector((state) => state.tasks);
+  const tasks = useSelector((state) => state.formTask.tasks);
   console.log(tasks)
 
   const taskNameRef = useRef(null);
