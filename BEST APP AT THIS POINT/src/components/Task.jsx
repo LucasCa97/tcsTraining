@@ -1,8 +1,7 @@
-import { deleteTask, toggleReminder } from '../actions';
 import { useDispatch } from 'react-redux';
+import { deleteTask, toggleReminder } from '../actions';
 import { fetchTasks } from '../actions/index';
 import { useEffect } from 'react';
-
 
 const Task = ({ task }) => {
   const dispatch = useDispatch();
@@ -10,6 +9,7 @@ const Task = ({ task }) => {
   useEffect(() => {
     dispatch(fetchTasks());
   }, [dispatch]);
+
   const { id, taskName, date, reminder } = task;
 
   const handleDelete = () => {
