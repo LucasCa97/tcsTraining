@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { ADD_TASK, EDIT_TASK, DELETE_TASK, TOGGLE_REMINDER } from "./actionTypes";
 
 export const increment = () => {
     return{
@@ -31,39 +31,70 @@ export const fetchData = () => {
     }
 }
 
-export const ADD_TASK = 'ADD_TASK';
-export const DELETE_TASK = 'DELETE_TASK';
-export const EDIT_TASK = 'EDIT_TASK';
-export const FETCH_TASKS = 'FETCH_TASKS';
-
-export const fetchTasks = () => async (dispatch) => {
-  const res = await axios.get('http://localhost:5000/tasks');
-  dispatch({
-    type: 'FETCH_TASKS',
-    payload: res.data,
-  });
+// Add task action
+export const addTask = (task) => (dispatch) => {
+  fetch("http://localhost:5000/tasks", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(task),
+  })
+    .then((res) => res.json())
+    .then((data) =>
+      dispatch({
+        type: ADD_TASK,
+        payload: data,
+      })
+    );
 };
 
-export const addTask = (task) => async (dispatch) => {
-  const res = await axios.post('http://localhost:5000/tasks', task);
-  dispatch({
-    type: 'ADD_TASK',
-    payload: res.data,
-  });
+// Edit task action
+export const editTask = (id, task) => (dispatch) => {
+  fetch(`http://localhost:5000/tasks/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(task),
+  })
+    .then((res) => res.json())
+    .then((data) =>
+      dispatch({
+        type: EDIT_TASK,
+        payload: data,
+      })
+    );
 };
 
-export const deleteTask = (id) => async (dispatch) => {
-  await axios.delete(`http://localhost:5000/tasks/${id}`);
-  dispatch({
-    type: 'DELETE_TASK',
-    payload: id,
-  });
+// Delete task action
+export const deleteTask = (id) => (dispatch) => {
+  fetch(`http://localhost:5000/tasks/${id}`, {
+    method: "DELETE",
+  }).then(() =>
+    dispatch({
+      type: DELETE_TASK,
+      payload: id,
+    })
+  );
 };
 
-export const updateTask = (id, updatedTask) => async (dispatch) => {
-  const res = await axios.put(`http://localhost:5000/tasks/${id}`, updatedTask);
-  dispatch({
-    type: 'UPDATE_TASK',
-    payload: res.data,
-  });
+// Toggle reminder action
+export const toggleReminder = (id, task) => (dispatch) => {
+  const updatedTask = { ...task, reminder: !task.reminder };
+
+  fetch(`http://localhost:5000/tasks/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedTask),
+  })
+    .then((res) => res.json())
+    .then((data) =>
+      dispatch({
+        type: TOGGLE_REMINDER,
+        payload: data,
+      })
+    );
 };
